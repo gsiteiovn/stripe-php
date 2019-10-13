@@ -77,4 +77,13 @@ class PlanTest extends TestCase
         $resource->delete();
         $this->assertInstanceOf(\Stripe\Plan::class, $resource);
     }
+
+    public function testDeserializeDecimalString()
+    {
+        $plan = Plan::constructFrom(json_decode("{\"amount_precise\": \"0.000000123\"}", true));
+        $this->assertNotNull($plan);
+        $this->assertNotNull($plan->amount_precise);
+        $this->assertTrue(is_string($plan->amount_precise));
+        $this->assertEquals("0.000000123", $plan->amount_precise);
+    }
 }

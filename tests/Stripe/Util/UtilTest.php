@@ -92,6 +92,19 @@ class UtilTest extends TestCase
         );
     }
 
+    public function testEncodeDecimalStrings()
+    {
+        $params = [
+            'float' => 0.000000123,
+            'string' => '0.000000123',
+        ];
+
+        $this->assertSame(
+            "float=0.000000123&string=0.000000123",
+            Util\Util::encodeParameters($params)
+        );
+    }
+
     public function testUrlEncode()
     {
         $this->assertSame("foo", Util\Util::urlEncode("foo"));
